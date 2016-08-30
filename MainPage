@@ -1,4 +1,10 @@
 <!DOCTYPE html>
 <html>
-    Hello World
+    <head>
+        <title>Manti</title>
+    </head>
+    
+    <body>
+        Hello World
+    </body>    
 </html>
