@@ -1,0 +1,11 @@
+h1{
+	color: blue;
+	text-align: left;
+}
+input{
+	color: black;
+	width: 300px;
+	height: 300px;
+	border: 2px solid gray;
+	background-color: steelblue;
+}
