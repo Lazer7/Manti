@@ -1,0 +1,1 @@
+alert(document.getElementById("square 1").getElementsByTagName("img"));
