@@ -1,0 +1,16 @@
+title{
+    color: aquamarine;
+}
+
+body{
+    background-color: lightblue;
+}
+
+
+img{
+    display: grid;
+    width=40%;
+    border-style: solid;
+    border-width: 20px 20px 20px 20px;
+    border-color: lightcoral;
+}
