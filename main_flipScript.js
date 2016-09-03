@@ -1,10 +1,35 @@
-var squareNames = ["square 1", "square 2", "square 3", "sqaure 4", "square 5", "square 6", "square 7", "square 8", "square 9"];
 
-var subPagePool = ["subPages\\MantiAnime.html", "subPages\\MantiCoding.html", "subPages\\MantiFood.html", "subPages\\MantiGaming.html", "subPages\\MantiMovie.html", "subPages\\MantiNews.html", "subPages\\MantiPhilosophical.html", "subPages\\MantiScienceandTechnology.html", "subPages\\MantiCodingHelp.html"];
+//makes sure the strings are spelt correctly or you will stay up til 2:33 am debugging like Alex
+var squareNames = ["square 1", "square 2", "square 3", "square 4", "square 5", "square 6", "square 7", "square 8", "square 9"];
 
-var displayStack = {};
+var picNames = ["pic1", "pic2", "pic3", "pic4", "pic5", "pic6", "pic7", "pic8", "pic9" ];
+
+var subPagePool = ["subPages/MantiAnime.html", "subPages/MantiCoding.html", "subPages/MantiFood.html", "subPages/MantiGaming.html", "subPages/MantiMovie.html", "subPages/MantiNews.html", "subPages/MantiPhilosophical.html", "subPages/MantiScienceandTechnology.html", "subPages/MantiCodingHelp.html"];
+
+var picturePool = ["pictures/anime.jpg", "pictures/Coding.jpg", "pictures/Food.jpg", "pictures/gaming.jpg", "pictures/Movie.jpg", "pictures/News.jpg", "pictures/Philosophical sculpture.jpg", "pictures/Science and Technology.jpg", "pictures/SOS.jpg"];
+
+var displayStack = [];
+
+
+var i;//declare counter outside the loop, of JSlint gets angry
+
+    for (i = 0; i < 9; i++)
+        {
+            
+           var toBePut = Math.floor(Math.random() * 9);//randomly chooses a space from the existing collection
+            
+            while(displayStack.indexOf(toBePut) != -1) //repeats are prevented here
+                {
+                   toBePut = Math.floor(Math.random() * 9); 
+                }
+            
+               displayStack.push(toBePut);
+               document.getElementById(squareNames[i]).setAttribute("href", subPagePool[toBePut]); //here we switch the link source
+               document.getElementById(picNames[i]).setAttribute("src", picturePool[toBePut]);      //here we switch the pictures source
+                
+             
+           
+        }
 
 
 
-
-//document.getElementById("square 1").setAttribute("href", "I changed the link so it could be more dynamic");
