@@ -1,12 +1,30 @@
-title{
-    color: dodgerblue;
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0px;
+    overflow: hidden;
+    background-color: chartreuse;
+    border-radius: 10px;
 }
-
+li{
+    float:left;
+}
+li a{
+    display: : block;
+    background-color: none;
+    text-align: center;
+    text-decoration:none;
+}
+logo{
+    text-decoration-color: chocolate;
+    font-size: 75px;
+}
+Search{
+    text-align: right;
+}
 body{
     background-color: dodgerblue;
 }
-
-
 img{
     display: grid;
     width=40%;
@@ -18,17 +36,13 @@ img{
     -webkit-transition:all .3s ease-in;
     transition: all .3s ease-in;
 }
-#SubSections{
-    
-    margin: 0 auto;
-    border-color: orangered; 
+.animes{   
+    display: block;
+    border: none;
+    border-style: none;
+    border-radius: 20px;
+    opacity: 1;
 }
-#SubSections:hover{
-    
-    margin: 0 auto;
-    border-color: orangered; 
-}
-
 .Anime{
     width: 30%;
 }
