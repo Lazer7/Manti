@@ -16,6 +16,12 @@ li a{
     text-align: center;
     text-decoration:none;
 }
+form{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    text-align: right;
+}
 /*This will show our future logo name design*/
 logo{
     text-decoration-color: chocolate;
