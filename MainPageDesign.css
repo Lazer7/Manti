@@ -1,3 +1,4 @@
+/*Design for the top tool bar*/
 ul{
     list-style-type: none;
     margin: 0;
@@ -15,16 +16,20 @@ li a{
     text-align: center;
     text-decoration:none;
 }
+/*This will show our future logo name design*/
 logo{
     text-decoration-color: chocolate;
     font-size: 75px;
 }
+/*Figuring out how to align the search bar to the right of the navigation bar*/
 Search{
     text-align: right;
 }
+/*Background of the website*/
 body{
     background-color: dodgerblue;
 }
+/*Design each picture with grid design and borders*/
 img{
     display: grid;
     width=40%;
@@ -36,6 +41,7 @@ img{
     -webkit-transition:all .3s ease-in;
     transition: all .3s ease-in;
 }
+/*Creates a hover effect for each picture*/
 .animes{   
     display: block;
     border: none;
