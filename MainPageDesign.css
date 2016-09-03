@@ -1,9 +1,9 @@
 title{
-    color: aquamarine;
+    color: dodgerblue;
 }
 
 body{
-    background-color: lightblue;
+    background-color: dodgerblue;
 }
 
 
@@ -11,6 +11,85 @@ img{
     display: grid;
     width=40%;
     border-style: solid;
-    border-width: 20px 20px 20px 20px;
-    border-color: lightcoral;
+    border-width: 15px 15px 15px 15px;
+    border-color: transparent;
+    border-radius: 20px;
+    opacity: .7;
+    -webkit-transition:all .3s ease-in;
+    transition: all .3s ease-in;
+}
+#SubSections{
+    
+    margin: 0 auto;
+    border-color: orangered; 
+}
+#SubSections:hover{
+    
+    margin: 0 auto;
+    border-color: orangered; 
+}
+
+.Anime{
+    width: 30%;
+}
+.Anime:hover{
+    border-color: orangered;
+    opacity: 1;
+}
+
+.Coding{
+    width: 30%;
+}
+.Coding:hover{
+    border-color: orangered;
+    opacity: 1;
+}
+.Food{ 
+    width: 30%;
+}
+.Food:hover{
+    border-color: orangered;
+    opacity: 1;
+}
+.Gaming{
+    width: 30%;
+}
+.Gaming:hover{
+    border-color: orangered;
+    opacity: 1;
+}
+.Movie{
+    width: 30%;
+}
+.Movie:hover{
+    border-color: orangered;
+    opacity: 1;
+}
+.News{ 
+    width: 30%;
+}
+.News:hover{
+    border-color: orangered;
+    opacity: 1;
+}
+.Philosophy{
+    width: 30%;
+}
+.Philosophy:hover{
+    border-color: orangered;
+    opacity: 1;
+}
+.Sciences{
+    width: 30%;
+}
+.Sciences:hover{
+    border-color: orangered;
+    opacity: 1;
+}
+.CodingHelp{ 
+    width: 30%;
+}
+.CodingHelp:hover{
+    border-color: orangered;
+    opacity: 1;
 }
