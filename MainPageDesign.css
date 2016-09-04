@@ -2,17 +2,21 @@
 ul{
     list-style-type: none;
     margin: 0;
-    padding: 0px;
+    padding: 0;
+    position:fixed;
+    top:0;
+    width: 100%;
     overflow: hidden;
-    background-color: chartreuse;
+    background-color: blue;
     border-radius: 10px;
 }
 li{
     float:left;
 }
 li a{
-    display: : block;
-    background-color: none;
+    display: block;
+    color: white;
+    padding: 14px 16px;
     text-align: center;
     text-decoration:none;
 }
@@ -25,7 +29,7 @@ form{
 /*This will show our future logo name design*/
 logo{
     text-decoration-color: chocolate;
-    font-size: 75px;
+    font-size: 70px;
 }
 /*Figuring out how to align the search bar to the right of the navigation bar*/
 Search{
@@ -33,6 +37,7 @@ Search{
 }
 /*Background of the website*/
 body{
+    margin: 75px;
     background-color: dodgerblue;
 }
 /*Design each picture with grid design and borders*/
