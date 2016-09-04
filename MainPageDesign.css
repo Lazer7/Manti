@@ -15,17 +15,21 @@ li a{
     display: block;
     color: white;
     padding: 14px 16px;
-    text-align: center;
     text-decoration:none;
 }
 form{
     margin: 0;
-    text-align: center;
-    display: inline-block;   
+    display: inline-block; 
+    padding 100px;
+    float:right;
+    border-radius: 20px;
+    font-size: 20;
 }
+
 /*This will show our future logo name design*/
 logo{
     text-decoration-color: chocolate;
+    color: red;
     font-size: 70px;
 }
 /*Background of the website*/
