@@ -2,34 +2,35 @@
 ul{
     list-style-type: none;
     margin: 0;
-    padding: 0px;
+    padding: 0;
+    width: 100%;
     overflow: hidden;
-    background-color: chartreuse;
+    background-color: blue;
     border-radius: 10px;
 }
 li{
     float:left;
 }
 li a{
-    display: : block;
-    background-color: none;
-    text-align: center;
+    display: block;
+    color: white;
+    padding: 14px 16px;
     text-decoration:none;
 }
 form{
     margin: 0;
-    padding: 0;
-    display: inline-block;
-    text-align: right;
+    display: inline-block; 
+    padding 100px;
+    float:right;
+    border-radius: 20px;
+    font-size: 20;
 }
+
 /*This will show our future logo name design*/
 logo{
     text-decoration-color: chocolate;
-    font-size: 75px;
-}
-/*Figuring out how to align the search bar to the right of the navigation bar*/
-Search{
-    text-align: right;
+    color: red;
+    font-size: 70px;
 }
 /*Background of the website*/
 body{
