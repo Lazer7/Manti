@@ -38,15 +38,25 @@ body{
 }
 /*Design each picture with grid design and borders*/
 img{
-    display: grid;
+    position: relative;
     width=40%;
     border-style: solid;
     border-width: 15px 15px 15px 15px;
     border-color: transparent;
     border-radius: 20px;
-    opacity: .7;
     -webkit-transition:all .3s ease-in;
     transition: all .3s ease-in;
+}
+.GameTitle{
+    border-style: none;
+    position: absolute;
+    opacity: 0;
+    -webkit-transition:all .3s ease-in;
+    transition: all .3s ease-in;
+}
+.GameTitle:hover
+{
+    opacity: 1;
 }
 /*Creates a hover effect for each picture*/
 .animes{   
@@ -54,69 +64,16 @@ img{
     border: none;
     border-style: none;
     border-radius: 20px;
-    opacity: 1;
-}
-.Anime{
-    width: 30%;
-}
-.Anime:hover{
-    border-color: orangered;
-    opacity: 1;
 }
 
-.Coding{
-    width: 30%;
+img:hover{
+    border-color:orangered;
+    
 }
-.Coding:hover{
-    border-color: orangered;
-    opacity: 1;
-}
-.Food{ 
-    width: 30%;
-}
-.Food:hover{
-    border-color: orangered;
-    opacity: 1;
-}
-.Gaming{
-    width: 30%;
-}
+
 .Gaming:hover{
-    border-color: orangered;
-    opacity: 1;
+ background: transparent url('/pictures/GameTitle.png') no-repeat;
+
 }
-.Movie{
-    width: 30%;
-}
-.Movie:hover{
-    border-color: orangered;
-    opacity: 1;
-}
-.News{ 
-    width: 30%;
-}
-.News:hover{
-    border-color: orangered;
-    opacity: 1;
-}
-.Philosophy{
-    width: 30%;
-}
-.Philosophy:hover{
-    border-color: orangered;
-    opacity: 1;
-}
-.Sciences{
-    width: 30%;
-}
-.Sciences:hover{
-    border-color: orangered;
-    opacity: 1;
-}
-.CodingHelp{ 
-    width: 30%;
-}
-.CodingHelp:hover{
-    border-color: orangered;
-    opacity: 1;
-}
+
+
