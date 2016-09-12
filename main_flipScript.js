@@ -8,7 +8,9 @@ var subPagePool = ["subPages/MantiAnime.html", "subPages/MantiCoding.html", "sub
 //holds the path of all the pictures
 var picturePool = ["pictures/anime.jpg", "pictures/Coding.jpg", "pictures/Food.jpg", "pictures/gaming.jpg", "pictures/Movie.jpg", "pictures/News.jpg", "pictures/Philosophical sculpture.jpg", "pictures/Science and Technology.jpg", "pictures/SOS.jpg", "pictures/History.png", "pictures/Cars.jpg", "pictures/Art.jpg", "pictures/Books.jpg", "pictures/Frugal_Living.jpg", "pictures/Personal_Finance.jpg", "pictures/Photography.jpg", "pictures/Aviation.jpg", "pictures/Geology.jpg", "pictures/Dwarf_Fortress.jpg"];
 
-var displayStack = [];
+var overlayTitles = ["Anime", "Coding","Food", "Gaming", "Movie", "News", "Philosophy", "Science and Technology", "Coding Help", "History", "Cars", "Art", "Books", "Frugal Living", "Personal Finance", "Photography", "Aviation", "Geology", "Dwarf Fortress"];
+
+var displayStack = ["span one", "span two", "span three","span four", "span five", "span six", "span seven", "span eight", "span nine"];
 
 
 var i;//declare counter outside the loop, of JSlint gets angry
@@ -26,9 +28,9 @@ var i;//declare counter outside the loop, of JSlint gets angry
                displayStack.push(toBePut);
                document.getElementById(squareNames[i]).setAttribute("href", subPagePool[toBePut]); //here we switch the link source
                document.getElementById(picNames[i]).setAttribute("src", picturePool[toBePut]);      //here we switch the pictures source
-                
+               document.getElementById(displayStack[i]).innerHTML = overlayTitles[toBePut];
              
-           
+            
         }
 
 

@@ -37,7 +37,7 @@ body{
     background-color: dodgerblue;
 }
 /*Design each picture with grid design and borders*/
-img{
+.link{ /* Alex changed it since the (link) divs are the outer boundries now*/
     position: relative;
     width=40%;
     border-style: solid;
@@ -47,26 +47,16 @@ img{
     -webkit-transition:all .3s ease-in;
     transition: all .3s ease-in;
 }
-.GameTitle{
-    border-style: none;
-    position: absolute;
-    opacity: 0;
-    -webkit-transition:all .3s ease-in;
-    transition: all .3s ease-in;
-}
-.GameTitle:hover
-{
-    opacity: 1;
-}
-/*Creates a hover effect for each picture*/
+
+/*Creates ahover effect for each picture*/
 .animes{   
     display: block;
     border: none;
     border-style: none;
     border-radius: 20px;
 }
-
-img:hover{
+/*changed it to (link here as well)*/
+.link:hover{
     border-color:orangered;
     
 }
@@ -75,5 +65,73 @@ img:hover{
  background: transparent url('/pictures/GameTitle.png') no-repeat;
 
 }
+
+
+
+
+
+
+
+
+
+
+/* Alex's edit's */
+/*this is a seperate tag from the overlay so that you could more cleanly edit the fonts and stuff
+this block just aligns the overlayText with the outer div*/
+.overlayText{
+    position:absolute;
+    top:45%;
+    left:0;
+    right:0;
+    bottom:0;
+    text-align: center;
+    
+    
+}
+/* aligns overlay with outer div 
+sets opacity to 0 so we only see it on hover
+background color is arbitrary
+color:white makes the text white*/
+.overlay {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    line-height: 100%;
+    background-color:rgba(0, 0, 0, 0.85);
+    opacity : 0;
+    z-index:20;
+    color:white;
+    
+   
+}
+
+
+/*displays overlay on hover*/
+.overlay:hover{
+    opacity: 1;
+    background-color:rgba(0, 0, 0, 0.50);
+    
+    
+}
+/* each link div takes up 30% of horizontal length*/
+.link{
+    width: 30%;
+}
+/* each image in the link divs conform to the same shape*/
+.link img{
+    width: 100%;
+    height: 295px;
+    
+}
+
+/*since we have multiple divs, we must take extra steps to align them
+here we align the "row" divs that each contain 3 link divs to keep our site's look'*/
+#row1 .link{display: inline-block; *display: inline; zoom: 1; vertical-align: top;}
+
+#row2 .link{display: inline-block; *display: inline; zoom: 1; vertical-align: middle;}
+
+#row3 .link{display: inline-block; *display: inline; zoom: 1; vertical-align: bottom;}
 
 
