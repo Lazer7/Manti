@@ -67,14 +67,6 @@ body{
 }
 
 
-
-
-
-
-
-
-
-
 /* Alex's edit's */
 /*this is a seperate tag from the overlay so that you could more cleanly edit the fonts and stuff
 this block just aligns the overlayText with the outer div*/
@@ -85,8 +77,11 @@ this block just aligns the overlayText with the outer div*/
     right:0;
     bottom:0;
     text-align: center;
-    
-    
+    font-size: 50px;
+    font-weight: bold;
+    font-family:monospace;
+    color: hotpink;
+
 }
 /* aligns overlay with outer div 
 sets opacity to 0 so we only see it on hover
@@ -103,8 +98,6 @@ color:white makes the text white*/
     opacity : 0;
     z-index:20;
     color:white;
-    
-   
 }
 
 
@@ -112,6 +105,7 @@ color:white makes the text white*/
 .overlay:hover{
     opacity: 1;
     background-color:rgba(0, 0, 0, 0.50);
+    
     
     
 }
