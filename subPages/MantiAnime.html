@@ -1,7 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>MantiAnime</title>
+        <title id = "title">MantiAnime</title>
+        
+        <link rel="stylesheet" type="text/css" href="subPageDesign.css">
+        <!This is the navigation bar>
+        <ul>
+            <!This is our Logo Picture to display and also used to refresh the page>
+            <li><a href="MainPage.html"><img src="\Manti\pictures\Logo.jpg" class="animes" width="50" height="50"></a></li>
+            <!Future Text Logo>
+            <logo id = "logo" >  </logo>
+            <! script is temporary>
+            <script language = "javascript">  
+                document.getElementById("logo").innerHTML = document.getElementById("title").innerHTML;
+            </script>
+            
+            <!Search Bar *We need PhP for page/thread lookups>            
+            <form>
+                <br>Search:<input type="text" name="Search" height:20px><br>
+            </form>
+            
+        </ul>
     </head>
     
     <body>
