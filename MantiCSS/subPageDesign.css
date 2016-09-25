@@ -1,0 +1,35 @@
+/*Design for the top tool bar*/
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+    background-color: blue;
+    border-radius: 10px;
+    position: fixed;
+}
+li{
+    float:left;
+}
+li a{
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration:none;
+}
+form{
+    margin: 0;
+    display: inline-block; 
+    padding 100px;
+    float:right;
+    border-radius: 20px;
+    font-size: 20;
+}
+
+/*This will show our future logo name design*/
+logo{
+    text-decoration-color: chocolate;
+    color: red;
+    font-size: 70px;
+}
