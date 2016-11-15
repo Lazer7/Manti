@@ -30,6 +30,7 @@ form{
 logo{
     text-decoration-color: chocolate;
     color: red;
+    width: 100%;
     font-size: 70px;
 }
 /*Background of the website*/
