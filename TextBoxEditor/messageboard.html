@@ -4,19 +4,45 @@
 <!--I can adjust the features for the textbox very easily, just tell me what you want-->
 <html>
 <head>
+    <!--BootStrap reference code-->
     <link rel="stylesheet" type="text/css" href="../BootStrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../BootStrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="../MantiCSS/PostPage.css">
-    
-	<!--The source which I downloaded-->
+	<!--JavaScript Source Code for the TextBox Function-->
    <script src="plugin/tinymce/tinymce.min.js"></script>
-	<!--"Kind of like an ID, the .js file is looking for. Not exactly though."-->
+	<!--"Initialize the Textbox editor in the designated area with CSS font"-->
     <script>
         tinymce.init({selector:'textarea',skin: 'BlueBasic'});
-    </script>
+    </script>  
+    
 </head>
-	<body>
-		<textarea> <!--Text box Area--> </textarea>
-	</body>
-   
+    
+    
+<div class="container-fluid">    
+	<body>   
+        <table style="width:100%">
+            <tr>
+                <th>Thread</th>
+                <th>Post</th>
+            </tr>
+            <tr>
+                <th>   
+                    <input type="radio" name="Thread"><br>
+                    </form>
+                </th>
+                <th>
+                    <input type="radio" name="Post"><br>
+                </th>
+                     </form>
+            </tr>
+        </table>
+		<textarea></textarea>
+        <button type="button" id="Post">POST</button>
+        <?php 
+            print "hello word";
+        ?>
+    </body>
+</div>
+
+    <script src = "../MantiJS/NewPost.js"></script>
 </html>
