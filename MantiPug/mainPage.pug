@@ -1,0 +1,72 @@
+doctype html
+html
+  head
+    link(rel='stylesheet', type='text/css', href='../BootStrap/css/bootstrap.min.css')
+    link(rel='stylesheet', type='text/css', href='../BootStrap/css/bootstrap-theme.min.css')
+    script(src='../BootStrap/js/bootstrap.min.js')
+    // Icon for Tabs
+    link(rel='icon', href='../Mantipictures/Logo2.png')
+    title Manti
+    // This is the reference to the style (MainPageDesign) page Jimmy has made
+    link(rel='stylesheet', type='text/css', href='../MantiCSS/MainPageDesign.css')
+    ul
+      li
+        a(href='MainPage.html')
+          img.animes(src='../Mantipictures/Logo2.png', width='50', height='40')
+      logo MANTI
+      // COMMENT
+      form
+        br
+        input(type='text', name='Search', placeholder='Search', height:20px='')
+        br
+  body
+    #SubSections
+      #row1
+        .link.a1
+          a(id='square 1', href='subPages/MantiAnime.html')
+            img#pic1.Anime(src='../Mantipictures/anime.jpg')
+            .overlay.one
+              span.overlayText.one(id='span one')  content 
+        .link.a1
+          a(id='square 2', href='subPages/MantiCoding.html')
+            img#pic2.Coding(src='../Mantipictures/Coding.jpg')
+            .overlay.one
+              span.overlayText.one(id='span two') content
+        .link.a3
+          a(id='square 3', href='subPages/MantiFood.html')
+            img#pic3.Food(src='../Mantipictures/Food.jpg')
+            .overlay.one
+              span.overlayText.one(id='span three') content
+      #row2
+        .link.a4
+          a(id='square 4', href='subPages/MantiGaming.html')
+            img#pic4.Gaming(src='../Mantipictures/gaming.jpg')
+            .overlay.one
+              span.overlayText.one(id='span four') content
+        .link.a5
+          a(id='square 5', href='subPages/MantiMovie.html')
+            img#pic5.Movie(src='../Mantipictures/Movie.jpg')
+            .overlay.one
+              span.overlayText.one(id='span five') content
+        .link.a6
+          a(id='square 6', href='subPages/MantiNews.html')
+            img#pic6.News(src='../Mantipictures/News.jpg')
+            .overlay.one
+              span.overlayText.one(id='span six') content
+      #row3
+        .link.a7
+          a(id='square 7', href='subPages/"MantiPhilosophical.html"')
+            img#pic7.Philosophy(src='../Mantipictures/Philosophical sculpture.jpg')
+            .overlay.one
+              span.overlayText.one(id='span seven') content
+        .link.a8
+          a(id='square 8', href='subPages/MantiScienceandTechnology.html')
+            img#pic8.Sciences(src='../Mantipictures/Science and Technology.jpg')
+            .overlay.one
+              span.overlayText.one(id='span eight') content
+        .link.a9
+          a(id='square 9', href='subPages/MantiCodingHelp.html')
+            img#pic9.CodingHelp(src='../Mantipictures/SOS.jpg')
+            .overlay.one
+              span.overlayText.one(id='span nine') content
+  script(src='../MantiJS/main_flipScript.js')
