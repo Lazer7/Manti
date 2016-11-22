@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <link rel="stylesheet" type="text/css" href="../MantiCSS/PostPage.css">
+            <title>ForumPage</title>
+            
+            <ul>
+                <!--This is our Logo Picture to display and also used to refresh the page-->
+                <li><a href="../MantiHTML/MainPage.html"><img src="../Mantipictures/Logo2.png" class="animes" width="50" height="40"></a></li>
+                <!--Future Text Logo-->
+                <logo>MANTI</logo>
+                <!--Search Bar *We need PhP for page/thread lookups-->           
+                <form>
+                    <br><input type="text" name="Search" placeholder="Search" height:20px><br>
+                </form>     
+            </ul>
+                 
+            <!--This div gets loaded with the Title Data and the Category-->
+            <div id="Titles"></div>
+        </head>
+        
+        <body>
+            <!--This contains all the comments-->
+            <div id="pageContent">
+
+                <!--This contains the individual comment-->
+                <div id="Comment"></div>
+
+            </div>
+
+            
+            
+            <!--Script to fill the title-->
+            <script id="FillTitle" type="text/x-jQuery-tmpl">
+                <h1>${TITLE}</h1>
+                
+                <h2>Category:${Category}</h2>
+                POSTED:${Date}
+            </script>
+                        <!--Script to fill the Comment-->
+            <script id="FillEntry" type="text/x-jQuery-tmpl">
+                <div id="CommentBox">
+                    <div id="picture"><img src=${Pictures} width="150px" height="150px"> </img></div>
+                    ${WrittenEntry}
+                    POSTED:${Date}
+                </div>
+            </script>
+            
+            
+            <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.4.js"></script>
+            <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+            <script type="text/javascript" src="NewPost.js"></script>
+        </body>
+    </html>

@@ -1,0 +1,13 @@
+body{
+    list-style-type: none;
+    overflow: hidden;
+    background-color: rgba(0, 234, 255, 0.3);
+}
+table,th,td
+{
+    border:2px solid black;
+}
+.content-table td
+{
+    text-align: center;
+}
