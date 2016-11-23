@@ -1,4 +1,3 @@
-/*Design for the top tool bar*/
 ul{
     list-style-type: none;
     margin: 0;
@@ -7,16 +6,13 @@ ul{
     overflow: hidden;
     background-color: blue;
     border-radius: 10px;
-    position: fixed;
-}
-li{
-    float:left;
 }
 li a{
     display: block;
     color: white;
     padding: 14px 16px;
-    text-decoration:none;
+    text-decoration:none;    
+    float:left;
 }
 form{
     margin: 0;
@@ -31,5 +27,18 @@ form{
 logo{
     text-decoration-color: chocolate;
     color: red;
+    width: 100%;
     font-size: 70px;
+}
+/*Background of the website*/
+body{
+    background-color: dodgerblue;
+}
+
+.button1 button{
+   font-size: 20px;
+}
+
+.button1{
+     margin-top: 20px;
 }
