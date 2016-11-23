@@ -16,11 +16,14 @@
             <li><a href="MainPage.html"><img src="../Mantipictures/Logo2.png" class="animes" width="50" height="40"></a></li>
             <!Future Text Logo>
             <logo>MANTI</logo>
-            <!Search Bar *We need PhP for page/thread lookups>            <!--COMMENT-->
-            <form>
-                <br><input type="text" name="Search" placeholder="Search" height:20px><br>
-            </form>
-            
+            <!-- Embedded Google Searchbar /--> 
+                  <form name="cse" id="searchbox_demo" action="https://www.google.com/cse">
+                  <input type="hidden" name="cref" value="" />
+                  <input type="hidden" name="ie" value="utf-8" />
+                  <input type="hidden" name="hl" value="" />
+                  <input name="q" type="text" placeholder = "Search" size="20" />
+                </form>
+                <script type="text/javascript" src="https%3A%2F%2Fcse.google.com%2Fcse/tools/onthefly?form=searchbox_demo&lang="></script>
         </ul>
     </head>
      
