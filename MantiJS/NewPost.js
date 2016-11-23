@@ -4,7 +4,18 @@ var Comments = [
     {WrittenEntry: "How to save a Life3", Pictures: "../Mantipictures/emoji.png", Date: "February 26, 1996"},
     {WrittenEntry: "How to save a Life4", Pictures: "../Mantipictures/emoji.png", Date: "February 26, 1996"}
 ];
+var titles;
 
-var title = {TITLE: "HELLO WORLD", Category: "FUUUU", Date: "November 8, 2016"};
-$("#FillTitle").tmpl(title).appendTo("#Titles");
+$.getJSON("data.json", function(obj){
+    
+    $.each(obj, function(key,value){
+     console.log("values "+value.TITLE);
+     titles=[{TITLE: value.TITLE, Category: value.Category, Date: value.Date}];
+        
+    console.log("title"+ titles[0].TITLE);
+     $("#FillTitle").tmpl(titles).appendTo("#Titles");
+    });
+});
+
+
 $("#FillEntry").tmpl(Comments).appendTo("#Comment");
