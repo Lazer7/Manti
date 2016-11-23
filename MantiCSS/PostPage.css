@@ -1,13 +1,44 @@
 body{
+    background-color: deepskyblue;
+}
+#CommentBox{
+    background-color: crimson;
+    border-style: solid;
+}
+#picture{
+    display: inline-block;
+}
+#Titles{
+    background-color: darkred;
+    border-style: ridge;
+}
+ul{
     list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
     overflow: hidden;
-    background-color: rgba(0, 234, 255, 0.3);
+    background-color: blue;
+    border-radius: 10px;
 }
-table,th,td
-{
-    border:2px solid black;
+li a{
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration:none;
+    float:left;
 }
-.content-table td
-{
-    text-align: center;
+form{
+    margin: 0;
+    display: inline-block; 
+    padding 100px;
+    float:right;
+    border-radius: 20px;
+    font-size: 20;
+}
+logo{
+    text-decoration-color: chocolate;
+    color: red;
+    width: 100%;
+    font-size: 70px;
 }
