@@ -1,6 +1,16 @@
 var mysql = require('mysql');
 
 var titles= "Titles";
+console.log("before read");
+var fs = require('fs');  
+fs.readFile('../MantiHTML/Queries.json', function read(err, data){
+    if(err){throw err;}
+    var config =JSON.parse(data);
+    var IsThread= config.Check;
+    var SQL=config.SQL;
+    var ID= config.ID;
+    console.log(SQL);
+
 
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
@@ -16,24 +26,33 @@ connection.connect(function(err) {
   }
 });
 
-connection.query('SELECT Post_title as TITLE, Category_Name as Category, Post_date as Date from Posts', function(err, rows,fields) {
+connection.query(SQL, function(err, rows,fields) {
   if (err){throw err;}
     else{
      setValue(rows);
     }
 });
-
-connection.query('SELECT * FROM postcomment', function(err, rice,fields) {
- if (err){throw err;}
-     else{
+    
+if(IsThread){
+    connection.query(('SELECT * FROM postcomment where Thread_ID =' + ID), function(err, rice,fields) {
+     if (err){throw err;}
+         else{
              setComments(rice);  
-     }
-  });
-
-function setValue(values){
+         }
+    });
+}
+else{
+    connection.query(('SELECT * FROM postcomment where Posts_ID =' + ID), function(err, rice,fields) {
+     if (err){throw err;}
+         else{
+            setComments(rice);  
+         }
+    });
+}
+function setValue(values){    
     titles=values;
     var jsonfile = require('jsonfile')
-    var file = '../MantiHTML/data.json'
+    var file = '../MantiHTML/datas.json'
     jsonfile.writeFile(file, titles, function (err) {
         console.error(err)
     });
@@ -48,4 +67,5 @@ function setComments(values){
 }
 
 connection.end();
-  
+});
+
