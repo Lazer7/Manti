@@ -26,9 +26,9 @@ FOREIGN KEY (Category_ID) REFERENCES Category (Category_ID)
 CREATE TABLE postComment(
 Comment_message VARCHAR (5000) NOT NULL,
 Comment_Date DATE NOT NULL,
-Thread_title VARCHAR(255),
-Posts_title VARCHAR (255),
+Thread_ID VARCHAR(255),
+Posts_ID VARCHAR (255),
 PRIMARY KEY (Comment_message, Comment_Date),
-FOREIGN KEY (Thread_title) REFERENCES Threads (Thread_title),
-FOREIGN KEY (Posts_title) REFERENCES Posts (Post_title)
+FOREIGN KEY (Thread_ID) REFERENCES Threads (Thread_ID),
+FOREIGN KEY (Posts_ID) REFERENCES Posts (Post_ID)
 );
