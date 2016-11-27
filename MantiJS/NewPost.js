@@ -1,10 +1,16 @@
-var Comments = [
-    {WrittenEntry: "How to save a Life", Pictures: "../Mantipictures/emoji.png", Date: "April 7, 1997"},
-    {WrittenEntry: "How to save a Life2", Pictures: "../Mantipictures/emoji.png", Date: "December 18, 1995"},
-    {WrittenEntry: "How to save a Life3", Pictures: "../Mantipictures/emoji.png", Date: "February 26, 1996"},
-    {WrittenEntry: "How to save a Life4", Pictures: "../Mantipictures/emoji.png", Date: "February 26, 1996"}
-];
+$.getJSON("datas.json", function(obj){
+    
+    $.each(obj, function(key,value){
+     console.log("values "+value.Date);
+     var titles=[{TITLE: value.TITLE, Category: value.Category,Message: value.Message, URL: value.URL, Date: value.Date}];
+     $("#FillTitle").tmpl(titles).appendTo("#Titles");
+    });
+});
 
-var title = {TITLE: "HELLO WORLD", Category: "FUUUU", Date: "November 8, 2016"};
-$("#FillTitle").tmpl(title).appendTo("#Titles");
-$("#FillEntry").tmpl(Comments).appendTo("#Comment");
+$.getJSON("comment.json", function(obj){
+    $.each(obj, function(key,value){
+        console.log("values "+value.TITLE);
+        var Comments=[{WrittenEntry: value.Comment_message, Pictures: "../Mantipictures/emoji.png", Date: value.Comment_Date}];
+        $("#FillEntry").tmpl(Comments).appendTo("#Comment");
+    });
+});
