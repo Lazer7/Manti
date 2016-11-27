@@ -5,7 +5,7 @@ html
     link(rel='stylesheet', type='text/css', href='../MantiCSS/subPageDesign.css')
     ul
       li
-        a(href='MainPage.html')
+        a(href='http://localhost:4000/Mainpage')
           img.animes(src='../Mantipictures/Logo2.png', width='50', height='40')
       logo= subPageName
       // COMMENT
@@ -15,6 +15,39 @@ html
         br
   body
     .button1
-      a(href='postPage.html')
+      a(href='http://localhost/Manti/MantiHtml/messageboard.php')
         button(type='button')  Make Post 
     .postArea
+        .post#post1
+            p#title1(data= data1)= title1
+            p#date1(type= type1)= date1
+        .post#post2
+            p#title2(data= data2)= title2
+            p#date2(type= type2)= date2
+        .post#post3
+            p#title3(data= data3)= title3
+            p#date3(type= type3)= date3
+        .post#post4
+            p#title4(data= data4)= title4
+            p#date4(type= type4)= date4
+        .post#post5
+            p#title5(data= data5)= title5
+            p#date5(type= type5)= date5
+        .post#post6
+            p#title6(data= data6)= title6
+            p#date6(type= type6)= date6
+        .post#post7    
+            p#title7(data= data7)= title7
+            p#date7(type= type7)= date7
+        .post#post8
+            p#title8(data= data8)= title8
+            p#date8(type= type8)= date8
+        .post#post9
+            p#title9(data= data9)= title9
+            p#date9(type= type9)= date9
+        .post#post10   
+            p#title10(data= data10)= title10
+            p#date10(type= type10)= date10
+     
+  script(src='../MantiJS/returnValues.js')
+  

@@ -9,7 +9,7 @@ $error= '';
                 $str=file_get_contents('../MantiHTML/Title.json');
                 $json=json_decode($str,true);    
                 $Titles=$json;
-                 $str=file_get_contents('../MantiHTML/Type.json');
+                $str=file_get_contents('../MantiHTML/Type.json');
                 $json=json_decode($str,true);   
                 $Message = $_POST["textarea"];
                 $type=$json;
@@ -54,7 +54,7 @@ $error= '';
                     
                 }
         }
-                unset($Message);
+        unset($Message);
     }
             
 ?>
@@ -67,7 +67,7 @@ $error= '';
             
             <ul>
                 <!--This is our Logo Picture to display and also used to refresh the page-->
-                <li><a href="../MantiHTML/MainPage.html"><img src="../Mantipictures/Logo2.png" class="animes" width="50" height="40"></a></li>
+                <li><a href="http://localhost:4000/Mainpage"><img src="../Mantipictures/Logo2.png" class="animes" width="50" height="40"></a></li>
                 <!--Future Text Logo-->
                 <logo>MANTI</logo>
                 <!--Search Bar *We need PhP for page/thread lookups-->           

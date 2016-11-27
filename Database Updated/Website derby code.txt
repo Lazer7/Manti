@@ -1,29 +1,31 @@
 CREATE TABLE Category(
-Category_Name VARCHAR(255) NOT NULL,
-Category_ID INT NOT NULL,
-PRIMARY KEY (Category_ID)
+Category_Name VARCHAR(50) NOT NULL,
+PRIMARY KEY (Category_Name)
 );
 
 CREATE TABLE Threads(
+Thread_ID int AUTO_INCREMENT,
 Thread_title VARCHAR(255) NOT NULL,
 Thread_message VARCHAR(5000) NOT NULL,
 Thread_Date DATE NOT NULL,
-Category_ID INT NOT NULL,
-PRIMARY KEY (Thread_title),
-FOREIGN KEY (Category_ID) REFERENCES Category (Category_ID)
+Category_Name VARCHAR(50) NOT NULL,
+PRIMARY KEY (Thread_ID,Category_Name),
+FOREIGN KEY (Category_Name) REFERENCES Category (Category_Name)
 );
 
 CREATE TABLE Posts(
+Post_ID int AUTO_INCREMENT,
 Post_title VARCHAR(255) NOT NULL,
 Post_date DATE NOT NULL,
 Posts_message VARCHAR (5000) NOT NULL,
 Post_URL VARCHAR(2083),
-Category_ID INT NOT NULL,
-PRIMARY KEY (Post_title),
-FOREIGN KEY (Category_ID) REFERENCES Category (Category_ID)
+Category_Name VARCHAR(50) NOT NULL,
+PRIMARY KEY (Post_ID,Category_Name),
+FOREIGN KEY (Category_Name) REFERENCES Category (Category_Name)
 );
 
 CREATE TABLE postComment(
+ID int AUTO_INCREMENT,
 Comment_message VARCHAR (5000) NOT NULL,
 Comment_Date DATE NOT NULL,
 Thread_ID VARCHAR(255),
