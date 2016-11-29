@@ -40,7 +40,7 @@
                 $type='Threads';
                 $sql .=' Threads (`Thread_title`, `Thread_message`, `Thread_Date`, `Category_Name`) VALUE';
                 $sql .=' (' .'"'. $Title.'"'.',' . '"'.$Message. '"'.','  .'"'. date("Y/m/d").'"' .','. '"'.$category .'"'. ');';    
-                $sql2='SELECT  `Thread_title`AS TITLE, `Category_Name`AS Category, `Thread_Date`AS Date,`Thread_message` AS Message,\' \' AS URL   FROM `threads` WHERE Thread_ID =';
+                $sql2.='`Thread_title`AS TITLE, `Category_Name`AS Category, `Thread_Date`AS Date,`Thread_message` AS Message,\' \' AS URL   FROM `threads` WHERE Thread_ID =';
                 $sql3.=" Thread_ID AS ID from Threads where Thread_title=".'"'.$Title.'";';
             }
             else if($_POST['Thread']=='Post')
