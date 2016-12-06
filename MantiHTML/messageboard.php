@@ -20,6 +20,7 @@
             $json=json_decode($str,true);
             $category= $json;
             $Message = $_POST["textarea"];
+            
             $servername = "localhost";
             $username = "root";
             $password = "";
@@ -30,63 +31,72 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }  
-            
+            $URL=" ";
             $sql = "INSERT INTO ";
             $sql2="SELECT ";
-            $sql3="SELECT ";
            if($_POST['Thread']=='Thread')
             {
                 $IsThread=true;
                 $type='Threads';
                 $sql .=' Threads (`Thread_title`, `Thread_message`, `Thread_Date`, `Category_Name`) VALUE';
                 $sql .=' (' .'"'. $Title.'"'.',' . '"'.$Message. '"'.','  .'"'. date("Y/m/d").'"' .','. '"'.$category .'"'. ');';    
-                $sql2.='`Thread_title`AS TITLE, `Category_Name`AS Category, `Thread_Date`AS Date,`Thread_message` AS Message,\' \' AS URL   FROM `threads` WHERE Thread_ID =';
-                $sql3.=" Thread_ID AS ID from Threads where Thread_title=".'"'.$Title.'";';
+                $sql2.=" Thread_ID AS ID from Threads where Thread_title=".'"'.$Title.'";';
+                $fp = fopen('comment.json', 'w');
+                fwrite($fp, '[]');
+                fclose($fp);
             }
             else if($_POST['Thread']=='Post')
             {
                 $IsThread=false;
                 $type='posts';
-                $Post=$_POST['URL'];
+                $URL=$_POST['URL'];
                 if(empty($Post)){
                     $error="<label class='text-danger'>URL LEFT BLANK</label>";
                 }
                 $sql .='`posts`(`Post_title`, `Post_date`, `Posts_message`, `Post_URL`, `Category_Name`) VALUE';
-                $sql .=' (' .'"'. $Title.'"'.',' . '"'.date("Y/m/d"). '"'.','  .'"'.$Message .'"'.',' .'"'. $Post  .'"'.','. '"'.$category .'"'. ');';
-                $sql2.="Post_title AS TITLE,Category_Name AS Category,Post_date AS Date, Posts_message AS MESSAGE, Post_URL AS URL From Posts where Posts.Post_ID=";
-                $sql3.=" Post_ID AS ID from posts where Post_title=".'"'.$Title.'";';
-            //echo $sql;
+                $sql .=' (' .'"'. $Title.'"'.',' . '"'.date("Y/m/d"). '"'.','  .'"'.$Message .'"'.',' .'"'. $URL  .'"'.','. '"'.$category .'"'. ');';
+                $sql2.=" Post_ID AS ID from posts where Post_title=".'"'.$Title.'";';
+                $fp = fopen('comment.json', 'w');
+                fwrite($fp, '[]');
+                fclose($fp);
             }
             
-            if ($conn->query($sql) === TRUE) {
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-            echo $sql3;
-            $result = $conn->query($sql3);
+            $conn->query($sql);
+            $result = $conn->query($sql2);
             $TitleID=0;    
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     $TitleID=$row["ID"];
                 }
             }
-            $sql2.=$TitleID.';';
-            $response['SQL']=$sql2;
+            $Title=trim($Title, "<p>");
+            $Title=rtrim($Title, "</p>");
+            $Message=trim($Message, "<p>");
+            $Message=rtrim($Message, "</p>");
+            
+            $response['Title']=$Title;
             $response['Check']=$IsThread;
             $response['ID']=$TitleID;
-
             $conn->close();
-            
-            $fp = fopen('Queries.json', 'w');
+
+            $fp = fopen('Title.json', 'w');
             fwrite($fp, json_encode($response));
             fclose($fp);
-            $fp = fopen('Title.json', 'w');
-            fwrite($fp, json_encode($Title));
-            fclose($fp);
-            $fp = fopen('Type.json', 'w');
-            fwrite($fp, json_encode($IsThread));
+      
+             $Data['TITLE']=$Title;
+             $Data['Category']=$category;
+             $Data['Date']=date("Y/m/d");
+             $Data['Message']=$Message;  
+            $Data['URL']=$URL;
+            $arr= array('TITLE'=>$Title,'Category'=>$category,'Date'=>date("Y/m/d"),'URL'=>$URL,'Message'=>$Message);
+
+            $fp = fopen('datas.json', 'w');
+            fwrite($fp, '[');
+            fwrite($fp, json_encode($Data));
+            fwrite($fp, ']');
             fclose($fp);
             header("Location: PostTemplate.php");
+            
             exit;
         }
             

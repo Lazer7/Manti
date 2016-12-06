@@ -1,62 +1,173 @@
 <?php
-$error= '';
+    $error= '';
+    $str=file_get_contents('../MantiHTML/Title.json');
+    $json=json_decode($str,true);    
+    $Titles=$json['Title'];
+    $ID=$json['ID'];
+    $type=$json['Check'];
+    $ratings=array("GoodCitation","ReliableSources","ConciseComment","GoodCounterLogic","Informative","LogicalFallacy","NoRating");
+    $GETID=array();
+    $numberOfComments=0;
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "manti";
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+    }  
+
+    if($type){
+        $sql="SELECT * FROM postcomment inner join ratings on postcomment.CommentID = ratings.CommentID WHERE Thread_ID=".$ID;
+        $result=$conn->query($sql);
+        $fp = fopen('comment.json', 'w');
+        $Comments='[';
+        if ($result->num_rows > 0) {  
+            while($row = $result->fetch_assoc()) {
+                $BestRating=0;
+                $index=0;
+                for($i=0; $i<7; $i++){
+                    if($row[$ratings[$i]]>$BestRating ){
+                        $BestRating=  $row[$ratings[$i]];
+                        $index=$i;
+                    }   
+                    $numberOfComments++;
+                } 
+             $Comments.='{"Comment_ID":'.$row['CommentID'].','.'"Comment_message":'.'"'.$row['Comment_message'].'"'.','.'"Comment_Date":'.'"'.$row['Comment_Date'].'"'.','.'"Comment_Rating":"'.$ratings[$index].'"},';
+            
+            }
+        }
+         $Comments=rtrim($Comments, ",");
+         $fp = fopen('comment.json', 'w');
+        fwrite($fp, $Comments);
+        fwrite($fp, ']');
+        fclose($fp);
+
+        $sql="SELECT CommentID FROM postcomment Where Thread_ID=".$ID;
+        $result=$conn->query($sql);
+        $i=0;
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $GETID[$i]=$row['CommentID'];
+                $i++;
+            }  
+        }
+    }
+
+    if(!$type){
+        $sql="SELECT * FROM postcomment WHERE Posts_ID=".$ID;
+        $result=$conn->query($sql);
+        $Comments='[';
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $BestRating=0;
+                $index=0;
+                for($i=0; $i<7; $i++){
+                    if($row[$ratings[$i]]>$BestRating ){
+                        $BestRating=  $row[$ratings[$i]];
+                        $index=$i;
+                    }   
+                    $numberOfComments++;
+                } 
+             $Comments.='{"Comment_ID":'.$row['CommentID'].','.'"Comment_message":'.'"'.$row['Comment_message'].'"'.','.'"Comment_Date":'.'"'.$row['Comment_Date'].'"'.','.'"Comment_Rating":"'.$ratings[$index].'"},';
+            
+            }
+        }
+        $Comments=rtrim($Comments, ",");
+         $fp = fopen('comment.json', 'w');
+        fwrite($fp, $Comments);
+        fwrite($fp, ']');
+        fclose($fp);
+        $sql="SELECT CommentID FROM postcomment WHERE Posts_ID=".$ID;
+        $result=$conn->query($sql);
+        $i=0;
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $GETID[$i]=$row['CommentID'];
+                $i++;
+            }  
+        }
+    }
+
+    if(isset($_POST['submit2'])){
+        if($numberOfComments==0){
+            $error="<label class='text-danger'>NO COMMENTS</label>";
+        }
+        else{
+        $selected= $_POST["RatingSS"];
+        $StringSelected;
+        for($i=0; $i<7; $i++){
+            if($selected==$ratings[$i]){        
+                $StringSelected=$ratings[$i];
+            }
+        }
+        $IDSELECTED=$_POST["RatingSSS"];
+        $sql='UPDATE ratings SET '.$StringSelected .'='.$StringSelected.'+ 2 WHERE CommentID ='.$IDSELECTED;
+        $conn->query($sql);
+        }
+    }
+
     if(isset($_POST["submit"]))
     {
+
+
         if(empty($_POST["textarea"])){
+            
             $error="<label class='text-danger'>TEXT BOX LEFT BLANKS</label>";
         }
         else{
-                $str=file_get_contents('../MantiHTML/Title.json');
-                $json=json_decode($str,true);    
-                $Titles=$json;
-                $str=file_get_contents('../MantiHTML/Type.json');
-                $json=json_decode($str,true);   
-                $Message = $_POST["textarea"];
-                $type=$json;
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "manti";
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }  
-            
+                $Message=$_POST["textarea"];
+                $Message=trim($Message, "<p>");
+                $Message=rtrim($Message, "</p>");
                 if($type){
-                    $sql="SELECT * FROM Threads where Thread_title =".'"'.$Titles.'";';
+                    $sql="INSERT INTO `postcomment`(`Comment_message`, `Comment_Date`, `Thread_ID`) VALUES('".$Message."','".date("Y/m/d")."','".$ID."');";
+                    $conn->query($sql);
+                   
+                    $sql="SELECT COMMENTID AS ID FROM postcomment where Thread_ID=".$ID ." and Comment_message=".'"'.$Message .'"'." order by CommentID asc";
                     $result = $conn->query($sql);
+                    $CommentID=0;
                     if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {
-                            $Thread_ID=$row["Thread_ID"];
+                            $CommentID=$row["ID"];
                         }
                     }
-                    $sql="INSERT INTO `postcomment`(`Comment_message`, `Comment_Date`, `Thread_ID`) VALUES('".$Message."','".date("Y/m/d") ."','".$Thread_ID."');";
-                    if ($conn->query($sql) === TRUE) {
-                    } else {
-                        echo "Error: " . $sql . "<br>" . $conn->error;
-                    }
+                    $sql="INSERT INTO ratings (`CommentID`, `GoodCitation`, `ReliableSources`, `ConciseComment`, `GoodCounterLogic`, `Informative`, `LogicalFallacy`, `NoRating`) values(".$CommentID.',0,0,0,0,0,0,1)';
+                    $conn->query($sql);
                 }
-                if(!$type){
-                    $sql="SELECT * FROM Posts where Post_title =".'"'.$Titles.'";';
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-                            $Post_ID=$row["Post_ID"];
-                        }
-                    }
-                    $sql="INSERT INTO `postcomment`(`Comment_message`, `Comment_Date`, `Posts_ID`) VALUES('".$Message."','".date("Y/m/d") ."','".$Post_ID."');";
-                    if ($conn->query($sql) === TRUE) {
-                    } else {
-                        echo "Error: " . $sql . "<br>" . $conn->error;
-                    }
-                    
-                }
-        }
-        unset($Message);
-    }
             
+
+                if(!$type){
+                    $sql="INSERT INTO `postcomment`(`Comment_message`, `Comment_Date`, `Posts_ID`) VALUES('".$Message."','".date("Y/m/d") ."','".$ID."');";
+                    $conn->query($sql);            
+                    
+                    $sql="SELECT COMMENTID AS ID FROM postcomment where Posts_ID=".$ID ." and Comment_message=".'"'.$Message .'"'." order by CommentID asc";
+                    $result = $conn->query($sql);
+                    $CommentID=0;
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            $CommentID=$row["ID"];
+                        }
+                    }
+                    $sql="INSERT INTO ratings (`CommentID`, `GoodCitation`, `ReliableSources`, `ConciseComment`, `GoodCounterLogic`, `Informative`, `LogicalFallacy`, `NoRating`) values(".$CommentID.',0,0,0,0,0,0,1)';
+                    $conn->query($sql);
+                
+                }
+            
+
+               unset($Message);
+               unset($_POST);
+               $conn->close();
+               header("Location: PostTemplate.php");  
+
+            
+        }
+        
+    }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +175,7 @@ $error= '';
         <head>
             <link rel="stylesheet" type="text/css" href="../MantiCSS/PostPage.css">
             <title>ForumPage</title>
-            
+            <link rel='icon', href='../Mantipictures/Logo2.png'>
             <ul>
                 <!--This is our Logo Picture to display and also used to refresh the page-->
                 <li><a href="http://localhost:4000/Mainpage"><img src="../Mantipictures/Logo2.png" class="animes" width="50" height="40"></a></li>
@@ -83,24 +194,41 @@ $error= '';
         
         <body>
             <!--This contains all the comments-->
+            <form name="form" Method="POST" action="PostTemplate.php" style="width: 100%">
             <div id="pageContent">
 
                 <!--This contains the individual comment-->
                 <div id="Comment"></div>
             </div>
             
-            <form name="form" Method="POST" action="PostTemplate.php">
+                 <select name="RatingSS">
+                     <option value="GoodCitation">      Good Citation      </option>
+                     <option value="ReliableSources">   Reliable Sources   </option>
+                     <option value="ConciseComment">    Concise Comment    </option>
+                     <option value="GoodCounterLogic"> Good Counter Logic </option>
+                     <option value="Informative">        Informative        </option>
+                     <option value="LogicalFallacy">    Logical Fallacy    </option>
+                 </select>  
+
+                <select name="RatingSSS">
+                    <?php for($x=0; $x<count($GETID); $x++){
+                     echo '<option value='.$GETID[$x] .'>' .$GETID[$x] .'</option>';
+                }?>
+
+                   </select>  
+        
+                <input type="submit" name="submit2" value="submit Rating"><br/>
                 <textarea name="textarea"></textarea>
                 <input type="submit" name="submit" value="submit"><br/>
                 <?php
                     if(isset($error))
                     {
                         echo $error;
+                        
                     }   
                 ?>
             </form>
-            
-            
+
 
             <!--Script to fill the title-->
             <script id="FillTitle" type="text/x-jQuery-tmpl">
@@ -112,16 +240,23 @@ $error= '';
             </script>
                         <!--Script to fill the Comment-->
             <script id="FillEntry" type="text/x-jQuery-tmpl">
-                <div id="CommentBox">
-                    <div id="picture"><img src=${Pictures} width="150px" height="150px"> </img></div>
+                <div id="CommentBox">  
+                <img src=${Picture} width="50px" height="50px"></img>
                     ${WrittenEntry}
+                    <div>
+                    ID: ${ID}
                     POSTED:${Date}
+                    Rating: ${Comment_Rating}
+                    </div>
                 </div>
             </script>
-            
+
+        </body>
+
             <script type="text/javascript" src="../MantiJS/jquery-1.8.1.js"></script>
             <script type="text/javascript" src="../MantiJS/jquery-1.4.4.js"></script>
             <script type="text/javascript" src="../MantiJS/jquery.tmpl.js"></script>
+            <script src="../MantiJS/jquery.dd.js" type="text/javascript"></script>
             <script type="text/javascript" src="../MantiJS/NewPost.js"></script>
             <script src="../MantiJS/plugin/tinymce/tinymce.min.js"></script>
             <!--"Initialize the Textbox editor in the designated area with CSS font"-->
@@ -129,8 +264,5 @@ $error= '';
                  tinymce.init({selector:'textarea',skin: 'BlueBasic'});
             </script>  
         
-        
-        </body>
-            
     </html>
 
