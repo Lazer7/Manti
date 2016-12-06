@@ -28,32 +28,32 @@ CREATE TABLE postComment(
 CommentID int AUTO_INCREMENT,
 Comment_message VARCHAR (5000) NOT NULL,
 Comment_Date DATE NOT NULL,
-Thread_ID VARCHAR(255),
-Posts_ID VARCHAR (255),
+Thread_ID int,
+Posts_ID int,
 PRIMARY KEY (CommentID),
 FOREIGN KEY (Thread_ID) REFERENCES Threads (Thread_ID),
 FOREIGN KEY (Posts_ID) REFERENCES Posts (Post_ID)
+   
 );
 
 CREATE TABLE ratings(
 CommentID int not null,
-GoodCitation int not null,
-ReliableSources int not null,
-ConciseComment int not null,
-GoodCounterLogic int not null,
-Informative int not null,
-LogicalFallacy int not null,
+GoodCitation int,
+ReliableSources int,
+ConciseComment int,
+GoodCounterLogic int,
+Informative int,
+LogicalFallacy int,
+NoRating int,
 foreign key (CommentID) references postComment (CommentID),
 primary key (CommentID)
 );
 
-#Updates
-	Update ratings
-	Set "ratingName" = "ratingName" + 2
-	Where CommentID = "id";
 
 #inserts go here
+insert into Category(Category_Name)
 
+VALUES ('anime'),('coding'),('food'),('gaming'),('movies'),('news'),('scienceandtechnology'),('philosophy'),('codinghelp');
 insert into Posts(Post_title,Post_date,Posts_message,Post_URL,Category_Name)
 values ('post1','2016/2/12','wew lad','https://answers.yahoo.com/question/index?qid=20111024181312AAbECrT','anime'),
 ('post2','2016-2-12','wew lad','https://answers.yahoo.com/question/index?qid=20111024181312AAbECrT','anime'),
@@ -129,15 +129,3 @@ values ('Thread1','wew lad', '2016-2-12','anime'),('Thread2','wew lad', '2016-2-
 ('Thread1','wew lad', '2016-2-12','codinghelp'),('Thread2','wew lad', '2016-2-12','codinghelp')
 ,('Thread3','wew lad', '2016-2-12','codinghelp'),('Thread4','wew lad', '2016-2-12','codinghelp'),
 ('Thread5','wew lad', '2016-2-12','codinghelp');
-
-SELECT CommentID, @MaxVal =: GREATEST(GoodCitation,ReliableSources,ConciseComment,GoodCounterLogic,Informative,LogicalFallacy)
-				  Case @MaxVal When GoodCitation Then 'GoodCitation'
-							   When ReliableSources Then 'ReliableSources'
-							   When GoodCounterLogic Then 'GoodCounterLogic'
-							   When Informative Then 'Informative'
-							   When LogicalFallacy Then 'LogicalFallacy'
-							   When ConciseComment Then 'ConciseComment'
-					END
-FROM ratings;
-
-
