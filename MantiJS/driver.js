@@ -5,6 +5,10 @@ var titles= "Titles";
 var fs = require("fs");
 
 
+var jsonfile = require('jsonfile')
+
+var file = '../MantiHTML/category.json'
+
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
@@ -38,8 +42,10 @@ app.get('/mainpage', function(req, res){
 
 var a = ['subPageName','wewlad'];
 app.get('/anime', function(req, res){
-    
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "anime" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "anime"', function(err, rows,fields) {
+        jsonfile.writeFile(file, "anime", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "anime" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "anime" ORDER BY Date' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -96,8 +102,10 @@ app.get('/anime', function(req, res){
         });
 
 app.get('/coding', function(req, res){
-        
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "coding" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "coding" ', function(err, rows,fields) {
+        jsonfile.writeFile(file, "coding", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "coding" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "coding" ORDER BY Date ', function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -149,8 +157,10 @@ app.get('/coding', function(req, res){
         });
 
 app.get('/food', function(req, res){
-        
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "food" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "food"', function(err, rows,fields) {
+        jsonfile.writeFile(file, "food", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "food" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "food" ORDER BY Date', function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -202,8 +212,10 @@ app.get('/food', function(req, res){
         });
 
 app.get('/gaming', function(req, res){
-        
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "gaming" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "gaming"', function(err, rows,fields) {
+        jsonfile.writeFile(file, "gaming", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "gaming" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "gaming" ORDER BY Date', function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -255,8 +267,10 @@ app.get('/gaming', function(req, res){
         });
 
 app.get('/movies', function(req, res){
-        
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "movies" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "movies"', function(err, rows,fields) {
+        jsonfile.writeFile(file, "movies", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "movies" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "movies" ORDER BY Date', function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -308,8 +322,10 @@ app.get('/movies', function(req, res){
         });
 
 app.get('/news', function(req, res){
-        
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "news" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "news"', function(err, rows,fields) {
+        jsonfile.writeFile(file, "news", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "news" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "news" ORDER BY Date', function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -361,8 +377,10 @@ app.get('/news', function(req, res){
         });
 
 app.get('/philosophy', function(req, res){
-        
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "philosophy" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "philosophy"', function(err, rows,fields) {
+        jsonfile.writeFile(file, "philosophy", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "philosophy" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "philosophy" ORDER BY Date', function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -413,9 +431,11 @@ app.get('/philosophy', function(req, res){
             });
         });
 
-app.get('/ScienceAndTechnology', function(req, res){
-        
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "scienceandtechnology" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "scienceandtechnology"', function(err, rows,fields) {
+app.get('/ScienceAndTechnology', function(req, res){        
+        jsonfile.writeFile(file, "ScienceAndTechnology", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "scienceandtechnology" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "scienceandtechnology" ORDER BY Date', function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -467,8 +487,10 @@ app.get('/ScienceAndTechnology', function(req, res){
         });
 
 app.get('/CodingHelp', function(req, res){
-        
-        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "codinghelp" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "codinghelp"', function(err, rows,fields) {
+        jsonfile.writeFile(file, "CodingHelp", function (err) {
+            console.error(err)
+        });
+        connection.query('SELECT Thread_ID as ID, Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, "thread" as KIND from Threads WHERE Category_Name = "codinghelp" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, "post" from posts WHERE Category_Name = "codinghelp" ORDER BY Date', function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
@@ -518,63 +540,6 @@ app.get('/CodingHelp', function(req, res){
             
             });
         });
-
-var titles= "Titles";
-console.log("before read");
-var fs = require('fs');  
-fs.readFile('../MantiHTML/Queries.json', function read(err, data){
-    if(err){throw err;}
-    var config =JSON.parse(data);
-    var IsThread= config.Check;
-    var SQL=config.SQL;
-    var ID= config.ID;
-    console.log(SQL);
-
-
-connection.query(SQL, function(err, rows,fields) {
-  if (err){throw err;}
-    else{
-     setValue(rows);
-    }
-});
-    
-if(IsThread){
-    connection.query(('SELECT * FROM postcomment where Thread_ID =' + ID), function(err, rice,fields) {
-     if (err){throw err;}
-         else{
-             setComments(rice);  
-         }
-    });
-}
-else{
-    connection.query(('SELECT * FROM postcomment where Posts_ID =' + ID), function(err, rice,fields) {
-     if (err){throw err;}
-         else{
-            setComments(rice);  
-         }
-    });
-}
-function setValue(values){    
-    titles=values;
-    var jsonfile = require('jsonfile')
-    var file = '../MantiHTML/datas.json'
-    jsonfile.writeFile(file, titles, function (err) {
-        console.error(err)
-    });
-}
-function setComments(values){
-    titles=values;
-    var jsonfile = require('jsonfile')
-    var file = '../MantiHTML/comment.json'
-    jsonfile.writeFile(file, titles, function (err) {
-        console.error(err)
-    });
-}
-});
-
-
-
-
 app.listen(4000);
 
 
