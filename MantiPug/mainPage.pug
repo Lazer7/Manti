@@ -15,10 +15,13 @@ html
           img.animes(src='../Mantipictures/Logo2.png', width='50', height='40')
       logo MANTI
       // COMMENT
-      form
-        br
-        input(type='text', name='Search', placeholder='Search', height:20px='')
-        br
+      
+        form#searchbox_demo(name='cse', action='https://www.google.com/cse')
+          input(type='hidden', name='cref', value='')
+          input(type='hidden', name='ie', value='utf-8')
+          input(type='hidden', name='hl', value='')
+          input(name='q', type='text', size='=20')
+          input(type='submit', name='sa', value='Search')
   body
     #SubSections
       #row1
@@ -69,3 +72,6 @@ html
             img#pic9.CodingHelp(src='../Mantipictures/SOS.jpg')
             .overlay.one
               span.overlayText.one(id='span nine') CodingHelp
+
+script(type='text/javascript', src='https%3A%2F%2Fcse.google.com%2Fcse/tools/onthefly?form=searchbox_demo&lang=')
+
