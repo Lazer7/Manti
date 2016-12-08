@@ -94,9 +94,10 @@ app.get('/anime', function(req, res){
                                                                 });
             
             
-            
+                        str1 = "[";
+                        str2 = "]";
                         var file = '../MantiHTML/AnimePosts/AnimeTitle1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+                        jsonfile.writeFile(file, str1.concat(rows[length-1]).concat(str2) , function (err) {
                         console.error(err)});
                         var file = '../MantiHTML/AnimePosts/AnimeTitle2.json';
                         jsonfile.writeFile(file, rows[length-2], function (err) {
