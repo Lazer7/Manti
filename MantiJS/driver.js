@@ -12,7 +12,7 @@ var file = '../MantiHTML/category.json'
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : '',
+  password : 'Datab8ss',
   database : 'manti'
 });
 
