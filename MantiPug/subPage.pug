@@ -3,16 +3,21 @@ html
   head
     // This is the reference to the style (MainPageDesign) page Jimmy has made
     link(rel='stylesheet', type='text/css', href='../MantiCSS/subPageDesign.css')
+    link(rel='icon', href='../Mantipictures/Logo2.png')
     ul
       li
         a(href='http://localhost:4000/Mainpage')
           img.animes(src='../Mantipictures/Logo2.png', width='50', height='40')
       logo= subPageName
+        
+        form#searchbox_demo(name='cse', action='https://www.google.com/cse')
+          input(type='hidden', name='cref', value='')
+          input(type='hidden', name='ie', value='utf-8')
+          input(type='hidden', name='hl', value='')
+          input(name='q', type='text', size='=20')
+          input(type='submit', name='sa', value='Search')
       // COMMENT
-      form
-        br
-        input(type='text', name='Search', placeholder='Search', height:20px='')
-        br
+
   body
     .button1
       a(href='http://localhost/Manti/MantiHtml/messageboard.php')
@@ -51,3 +56,5 @@ html
   script(src='../MantiJS/jquery-3.1.1.js') 
   script(scr='http://svn.tiddlywiki.org/Trunk/core/jquery/plugins/jQuery.twFile.js')
   script(src='../MantiJS/returnValues.js')
+
+script(type='text/javascript', src='https%3A%2F%2Fcse.google.com%2Fcse/tools/onthefly?form=searchbox_demo&lang=')

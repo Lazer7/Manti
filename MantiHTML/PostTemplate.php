@@ -58,7 +58,7 @@
     }
 
     if(!$type){
-        $sql="SELECT * FROM postcomment WHERE Posts_ID=".$ID;
+        $sql="SELECT * FROM postcomment inner join ratings on postcomment.CommentID WHERE Posts_ID=".$ID;
         $result=$conn->query($sql);
         $Comments='[';
         if ($result->num_rows > 0) {
@@ -181,10 +181,16 @@
                 <li><a href="http://localhost:4000/Mainpage"><img src="../Mantipictures/Logo2.png" class="animes" width="50" height="40"></a></li>
                 <!--Future Text Logo-->
                 <logo>MANTI</logo>
-                <!--Search Bar *We need PhP for page/thread lookups-->           
-                <form>
-                    <br><input type="text" name="Search" placeholder="Search" height:20px><br>
-                </form>     
+                <!--Search Bar *We need PhP for page/thread lookups-->    
+                <form name="cse" id="searchbox_demo" action="https://www.google.com/cse">
+                    <input type="hidden" name="cref" value="" />
+                      <input type="hidden" name="ie" value="utf-8" />
+                      <input type="hidden" name="hl" value="" />
+                      <input name="q" type="text" size="=20" />
+                      <input type="submit" name="sa" value="Search" />
+                    </form>
+                <script type="text/javascript" src="https%3A%2F%2Fcse.google.com%2Fcse/tools/onthefly?form=searchbox_demo&lang="></script>
+                
             </ul>
                  
             <!--This div gets loaded with the Title Data and the Category-->
@@ -264,5 +270,7 @@
                  tinymce.init({selector:'textarea',skin: 'BlueBasic'});
             </script>  
         
+
+                              
     </html>
 
