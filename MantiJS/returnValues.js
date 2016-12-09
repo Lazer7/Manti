@@ -1,6 +1,9 @@
 var id = '';
 var type = '';
+//this script makes it so that when the user clicks on a post, they are taken to the relevant postPage
 
+//each function below impliments the above for each post object on the page
+//note: this script is the same for all other scripts that are named <subPageName>Script save that they target different pages.  i.e AnimeScript does the same thing as CodingScript, but both scripts target different pages
 document.getElementById('post1').onclick = function(){
     id = document.getElementById('title1').getAttribute('data');
     type = document.getElementById('date1').getAttribute('type');
