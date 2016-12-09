@@ -4,7 +4,7 @@ ul{
     padding: 0;
     width: 100%;
     overflow: hidden;
-    background-color: blue;
+    background-color: #00a195;
     border-radius: 10px;
 }
 li a{
@@ -21,19 +21,31 @@ form{
     float:right;
     border-radius: 20px;
     font-size: 20;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-right: 20px;
 }
+
 
 /*This will show our future logo name design*/
 logo{
-    text-decoration-color: chocolate;
-    color: red;
+   color: white;
+    letter-spacing: 5px;
     width: 100%;
     font-size: 70px;
+    font-family: "Open Sans";
+    font-weight: bold;
 }
-/*Background of the website*/
-body{
-    background-color: dodgerblue;
 }
+.img {
+    padding-top: 10px;
+    display: block;
+    border: none;
+    border-style: none;
+    height: 55px;
+    width: 90px;
+}
+
 
 .button1 button{
    font-size: 20px;
@@ -43,6 +55,7 @@ body{
      margin-top: 20px;
 }
 .post{
-    background-color: crimson;
+    margin-top: 5px;
+   background-color: #00a195;
     border-style: solid;
 }

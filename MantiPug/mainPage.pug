@@ -3,6 +3,8 @@ html
   head
     link(rel='stylesheet', type='text/css', href='../BootStrap/css/bootstrap.min.css')
     link(rel='stylesheet', type='text/css', href='../BootStrap/css/bootstrap-theme.min.css')
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
+   
     script(src='../BootStrap/js/bootstrap.min.js')
     // Icon for Tabs
     link(rel='icon', href='../Mantipictures/Logo2.png')
@@ -12,11 +14,10 @@ html
     ul
       li
         a(href='http://localhost:4000/Mainpage')
-          img.animes(src='../Mantipictures/Logo2.png', width='50', height='40')
+          img.animes(src='../Mantipictures/Logo2.png', class=logo2)
       logo MANTI
-      // COMMENT
       
-        form#searchbox_demo(name='cse', action='https://www.google.com/cse')
+        form#searchbox_demo(name='cse',class='Bar' action='https://www.google.com/cse')
           input(type='hidden', name='cref', value='')
           input(type='hidden', name='ie', value='utf-8')
           input(type='hidden', name='hl', value='')
