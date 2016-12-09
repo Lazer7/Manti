@@ -1,4 +1,9 @@
+
 <?php
+    //this file retrieves comments and their respective data from mysql and presents them
+    //on the postPage
+    
+
     $error= '';
     $str=file_get_contents('AnimeTitle1.json');
     $json=json_decode($str,true);    
@@ -145,7 +150,7 @@
                     }
                     $sql="INSERT INTO ratings (`CommentID`, `GoodCitation`, `ReliableSources`, `ConciseComment`, `GoodCounterLogic`, `Informative`, `LogicalFallacy`, `NoRating`) values(".$CommentID.',0,0,0,0,0,0,1)';
                     $conn->query($sql);
-                    echo "here";
+                   
                 }
             
 
@@ -163,7 +168,7 @@
                     }
                     $sql="INSERT INTO ratings (`CommentID`, `GoodCitation`, `ReliableSources`, `ConciseComment`, `GoodCounterLogic`, `Informative`, `LogicalFallacy`, `NoRating`) values(".$CommentID.',0,0,0,0,0,0,1)';
                     $conn->query($sql);
-                    echo "here";
+               
                 
                 }
             
