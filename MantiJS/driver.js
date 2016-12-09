@@ -12,7 +12,7 @@ var file = '../MantiHTML/category.json'
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : 'Datab8ss',
+  password : '',
   database : 'manti'
 });
 
@@ -45,12 +45,12 @@ app.get('/anime', function(req, res){
         jsonfile.writeFile(file, "anime", function (err) {
             console.error(err)
         });
-        connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "anime" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "anime" ORDER BY Date' , function(err, rows,fields) {
+        connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "anime" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "anime" ORDER BY Date, Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'anime',
+                    res.render('AnimePage', {subPageName: 'anime',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -94,10 +94,9 @@ app.get('/anime', function(req, res){
                                                                 });
             
             
-                        str1 = "[";
-                        str2 = "]";
+            
                         var file = '../MantiHTML/AnimePosts/AnimeTitle1.json';
-                        jsonfile.writeFile(file, str1.concat(rows[length-1]).concat(str2) , function (err) {
+                        jsonfile.writeFile(file, rows[length-1], function (err) {
                         console.error(err)});
                         var file = '../MantiHTML/AnimePosts/AnimeTitle2.json';
                         jsonfile.writeFile(file, rows[length-2], function (err) {
@@ -131,39 +130,58 @@ app.get('/anime', function(req, res){
             
             });
     
-      connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "anime" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "anime" ORDER BY Date' , function(err, rows,fields) {
+      connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "anime" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "anime" ORDER BY Date, TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
-            
-            var file = '../MantiHTML/AnimePosts/AnimeData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+                        var x=JSON.stringify(rows[length-1]);
+                        var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/AnimePosts/AnimeData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-2])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-3])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-4])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-5])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-6])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-7])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-8])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-9])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-10])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/AnimePosts/AnimeData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});  
                 
             });
@@ -176,12 +194,12 @@ app.get('/coding', function(req, res){
         jsonfile.writeFile(file, "coding", function (err) {
             console.error(err)
         });
-        connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "coding" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "coding" ORDER BY Date' , function(err, rows,fields) {
+        connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "anime" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "coding" ORDER BY Date, Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'coding',
+                    res.render('CodingPage', {subPageName: 'coding',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -261,39 +279,60 @@ app.get('/coding', function(req, res){
             
             });
     
-                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "coding" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "coding" ORDER BY Date' , function(err, rows,fields) {
+                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "coding" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "coding" ORDER BY Date,TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
-            var file = '../MantiHTML/CodingPosts/CodingData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+            var x=JSON.stringify(rows[length-1]);
+            var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/CodingPosts/CodingData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+          
+            x="["+JSON.stringify(rows[length-2])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+          x="["+JSON.stringify(rows[length-3])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+          x="["+JSON.stringify(rows[length-4])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+          x="["+JSON.stringify(rows[length-5])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+          x="["+JSON.stringify(rows[length-6])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+          x="["+JSON.stringify(rows[length-7])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+          x="["+JSON.stringify(rows[length-8])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+          x="["+JSON.stringify(rows[length-9])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+          x="["+JSON.stringify(rows[length-10])+"]";
+            x=JSON.parse(x);
                         var file = '../MantiHTML/CodingPosts/CodingData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});  
                 
             });
@@ -305,12 +344,12 @@ app.get('/food', function(req, res){
         jsonfile.writeFile(file, "food", function (err) {
             console.error(err)
         });
-                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "food" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "food" ORDER BY Date' , function(err, rows,fields) {
+                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "food" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "food" ORDER BY Date,Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'food',
+                    res.render('FoodPage', {subPageName: 'food',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -390,39 +429,59 @@ app.get('/food', function(req, res){
             
             });
     
-                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "food" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "food" ORDER BY Date' , function(err, rows,fields) {
+                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "food" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "food" ORDER BY Date,TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
-            var file = '../MantiHTML/FoodPosts/FoodData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+                        var x=JSON.stringify(rows[length-1]);
+                        var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/FoodPosts/FoodData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-2])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-3])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-4])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-5])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-6])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-7])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-8])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-9])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-10])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/FoodPosts/FoodData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
+                        jsonfile.writeFile(file,x ,function (err) {
                         console.error(err)});  
                 
             });
@@ -432,12 +491,12 @@ app.get('/gaming', function(req, res){
         jsonfile.writeFile(file, "gaming", function (err) {
             console.error(err)
         });
-                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "gaming" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "gaming" ORDER BY Date' , function(err, rows,fields) {
+                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "gaming" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "gaming" ORDER BY Date,Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'gaming',
+                    res.render('GamingPage', {subPageName: 'gaming',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -517,39 +576,59 @@ app.get('/gaming', function(req, res){
             
             });
     
-                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "gaming" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "gaming" ORDER BY Date' , function(err, rows,fields) {
+                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "gaming" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "gaming" ORDER BY Date,TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
-            var file = '../MantiHTML/GamingPosts/GamingData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+         var x=JSON.stringify(rows[length-1]);
+                        var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/GamingPosts/GamingData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-2])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-3])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-4])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-5])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-6])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-7])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-8])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-9])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-10])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/GamingPosts/GamingData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});  
                 
             });            
@@ -561,12 +640,12 @@ app.get('/movies', function(req, res){
         jsonfile.writeFile(file, "movies", function (err) {
             console.error(err)
         });
-                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "movies" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "movies" ORDER BY Date' , function(err, rows,fields) {
+                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "movies" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "movies" ORDER BY Date,Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'movies',
+                    res.render('MoviesPage', {subPageName: 'movies',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -646,39 +725,59 @@ app.get('/movies', function(req, res){
             
             });
     
-                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "movies" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "movies" ORDER BY Date' , function(err, rows,fields) {
+                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "movies" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "movies" ORDER BY Date,TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
-            var file = '../MantiHTML/MoviesPosts/MoviesData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+                        var x=JSON.stringify(rows[length-1]);
+                        var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/MoviesPosts/MoviesData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-2])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-3])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-4])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-5])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-6])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-7])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-8])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-9])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-10])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/MoviesPosts/MoviesData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
+                        jsonfile.writeFile(file,x ,function (err) {
                         console.error(err)});  
                 
             });
@@ -688,12 +787,12 @@ app.get('/news', function(req, res){
         jsonfile.writeFile(file, "news", function (err) {
             console.error(err)
         });
-                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "news" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "news" ORDER BY Date' , function(err, rows,fields) {
+                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "news" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "news" ORDER BY Date,Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'news',
+                    res.render('NewsPage', {subPageName: 'news',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -773,39 +872,59 @@ app.get('/news', function(req, res){
             
             });
     
-                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "news" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "news" ORDER BY Date' , function(err, rows,fields) {
+                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "news" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "news" ORDER BY Date,TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
-            var file = '../MantiHTML/NewsPosts/NewsData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+ var x=JSON.stringify(rows[length-1]);
+                        var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/NewsPosts/NewsData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-2])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-3])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-4])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-5])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-6])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-7])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-8])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-9])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-10])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/NewsPosts/NewsData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
+                        jsonfile.writeFile(file,x ,function (err) {
                         console.error(err)});  
                 
             });
@@ -816,12 +935,12 @@ app.get('/philosophy', function(req, res){
         jsonfile.writeFile(file, "philosophy", function (err) {
             console.error(err)
         });
-                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "philosophy" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "philosophy" ORDER BY Date' , function(err, rows,fields) {
+                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "philosophy" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "philosophy" ORDER BY Date,Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'philosophy',
+                    res.render('PhilosophyPage', {subPageName: 'philosophy',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -901,39 +1020,58 @@ app.get('/philosophy', function(req, res){
             
             });
     
-                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "philosophy" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "philosophy" ORDER BY Date' , function(err, rows,fields) {
+                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "philosophy" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "philosophy" ORDER BY Date,TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
-            
-            var file = '../MantiHTML/PhilosophyPosts/PhilosophyData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+  var x=JSON.stringify(rows[length-1]);
+                        var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/PhilosophyPosts/PhilosophyData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-2])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-3])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-4])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-5])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-6])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-7])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-8])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-9])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-10])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/PhilosophyPosts/PhilosophyData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
+                        jsonfile.writeFile(file,x ,function (err) {
                         console.error(err)});  
                 
             });
@@ -943,12 +1081,12 @@ app.get('/ScienceAndTechnology', function(req, res){
         jsonfile.writeFile(file, "ScienceAndTechnology", function (err) {
             console.error(err)
         });
-                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "scienceandtechnology" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "scienceandtechnology" ORDER BY Date' , function(err, rows,fields) {
+                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "scienceandtechnology" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "scienceandtechnology" ORDER BY Date,Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'Science and Technology',
+                    res.render('ScienceAndTechnologyPage', {subPageName: 'Science and Technology',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -1028,39 +1166,59 @@ app.get('/ScienceAndTechnology', function(req, res){
             
             });
     
-                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "scienceandtechnology" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "scienceandtechnology" ORDER BY Date' , function(err, rows,fields) {
+                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "scienceandtechnology" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "scienceandtechnology" ORDER BY Date,TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
-            var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+ var x=JSON.stringify(rows[length-1]);
+                        var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-2])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-3])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-4])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-5])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-6])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-7])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-8])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-9])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-10])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/ScienceAndTechnologyPosts/ScienceAndTechnologyData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});  
                 
             });
@@ -1070,12 +1228,12 @@ app.get('/CodingHelp', function(req, res){
         jsonfile.writeFile(file, "CodingHelp", function (err) {
             console.error(err)
         });
-                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "codinghelp" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "codinghelp" ORDER BY Date' , function(err, rows,fields) {
+                connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "codinghelp" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "codinghelp" ORDER BY Date,Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
                     console.log('success')
-                    res.render('subPage', {subPageName: 'Coding Help',
+                    res.render('CodingHelpPage', {subPageName: 'Coding Help',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -1155,40 +1313,59 @@ app.get('/CodingHelp', function(req, res){
             
             });
     
-                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "codinghelp" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "codinghelp" ORDER BY Date' , function(err, rows,fields) {
+                        connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "codinghelp" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "codinghelp" ORDER BY Date,TITLE' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
-            
-            var file = '../MantiHTML/CodingHelpPosts/CodingHelpData1.json';
-                        jsonfile.writeFile(file, rows[length-1], function (err) {
+    var x=JSON.stringify(rows[length-1]);
+                        var x=JSON.parse("["+x+"]");
+                        var file = '../MantiHTML/CodingHelpPosts/CodingHelpData1.json';
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-2])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData2.json';
-                        jsonfile.writeFile(file, rows[length-2], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-3])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData3.json';
-                        jsonfile.writeFile(file, rows[length-3], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-4])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData4.json';
-                        jsonfile.writeFile(file, rows[length-4], function (err) {
+                        jsonfile.writeFile(file,x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-5])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData5.json';
-                        jsonfile.writeFile(file, rows[length-5], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-6])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData6.json';
-                        jsonfile.writeFile(file, rows[length-6], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-7])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData7.json';
-                        jsonfile.writeFile(file, rows[length-7], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-8])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData8.json';
-                        jsonfile.writeFile(file, rows[length-8], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-9])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData9.json';
-                        jsonfile.writeFile(file, rows[length-9], function (err) {
+                        jsonfile.writeFile(file, x, function (err) {
                         console.error(err)});
+                        x="["+JSON.stringify(rows[length-10])+"]";
+                        x=JSON.parse(x);
                         var file = '../MantiHTML/CodingHelpPosts/CodingHelpData10.json';
-                        jsonfile.writeFile(file, rows[length-10], function (err) {
-                        console.error(err)});  
+                        jsonfile.writeFile(file,x, function (err) {
+                        console.error(err)});   
                 
             });
         });

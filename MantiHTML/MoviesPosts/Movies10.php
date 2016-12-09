@@ -61,7 +61,7 @@
     }
 
     if($type==0){
-        $sql="SELECT * FROM postcomment inner join ratings on postcomment.CommentID WHERE Posts_ID=".$ID;
+        $sql="SELECT * FROM postcomment inner join ratings on postcomment.CommentID= ratings.CommentID  WHERE Posts_ID=".$ID;
         $result=$conn->query($sql);
         $Comments='[';
         if ($result->num_rows > 0) {
