@@ -1,13 +1,19 @@
 body{
     list-style-type: none;
     overflow: hidden;
-    background-color: rgba(0, 234, 255, 0.3);
+    background-color: seashell;
 }
 table,th,td
 {
-    border:2px solid black;
+    margin-top:  10px;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+    border:3px solid black;
 }
 .content-table td
 {
     text-align: center;
+}
+input[name="Title"] { 
+    width: 100%;
 }

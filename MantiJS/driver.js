@@ -1,4 +1,3 @@
-//in this section, all packages and dependencies are linked
 var mysql = require('mysql');
 
 var titles= "Titles";
@@ -10,7 +9,6 @@ var jsonfile = require('jsonfile')
 
 var file = '../MantiHTML/category.json'
 
-//a connection to mysql is established here
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
@@ -30,7 +28,7 @@ connection.connect(function(err) {
 var express = require('express');
 var app = express();
 
-//'pug' our template generator, is instantiated here
+
 app.set('view engine', 'pug');
 app.set('views','./../MantiPug');
 
@@ -43,17 +41,16 @@ app.get('/mainpage', function(req, res){
 });
 
 var a = ['subPageName','wewlad'];
-//here we generate the anime subpage
-app.get('/anime', function(req, res){
+app.get('/Anime', function(req, res){
         jsonfile.writeFile(file, "anime", function (err) {
             console.error(err)
         });
         connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "anime" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "anime" ORDER BY Date, Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
-                    //we use the above query to populate the subpage with relevant data
+            
                     console.log('success')
-                    res.render('AnimePage', {subPageName: 'anime',
+                    res.render('AnimePage', {subPageName: 'Anime',
                                            title1: rows[length-1].Title,
                                            date1: rows[length-1].Date,
                                            data1:rows[length-1].ID,
@@ -97,7 +94,7 @@ app.get('/anime', function(req, res){
                                                                 });
             
             
-                        //we also write to the JSON file using info retrieved from the query
+            
                         var file = '../MantiHTML/AnimePosts/AnimeTitle1.json';
                         jsonfile.writeFile(file, rows[length-1], function (err) {
                         console.error(err)});
@@ -135,8 +132,6 @@ app.get('/anime', function(req, res){
     
       connection.query('SELECT Thread_title as TITLE, Category_Name as Category, Thread_Date as Date, Thread_message as Message, "" as URL from Threads WHERE Category_Name = "anime" UNION SELECT Post_title, Category_Name, Post_date, Posts_message , Post_URL from Posts WHERE Category_Name = "anime" ORDER BY Date, TITLE' , function(err, rows,fields) {
             if (err){throw err;}
-          
-            //another query is run to input another set of info into another set of JSON files
             var length = rows.length;
                         var x=JSON.stringify(rows[length-1]);
                         var x=JSON.parse("["+x+"]");
@@ -195,13 +190,11 @@ app.get('/anime', function(req, res){
 
         });
 
-
-//same process as above is repeated 8 more times for the subpages below
 app.get('/coding', function(req, res){
         jsonfile.writeFile(file, "coding", function (err) {
             console.error(err)
         });
-        connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "anime" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "coding" ORDER BY Date, Title' , function(err, rows,fields) {
+        connection.query('SELECT Thread_ID as ID, Thread_title as Title, Category_Name as Category, Thread_Date as Date, true as "Check" from Threads WHERE Category_Name = "coding" UNION SELECT Post_ID, Post_title, Category_Name, Post_date, false from posts WHERE Category_Name = "coding" ORDER BY Date, Title' , function(err, rows,fields) {
             if (err){throw err;}
             var length = rows.length;
             
