@@ -1,14 +1,18 @@
 <?php
+    //Error message to catch and alert user of any mistakes
     $error= '';
+    //get the title of the post/thread, ID of the post/thread and it'stype
     $str=file_get_contents('../MantiHTML/Title.json');
     $json=json_decode($str,true);    
     $Titles=$json['Title'];
     $ID=$json['ID'];
     $type=$json['Check'];
+
+    //gets the ratings
     $ratings=array("GoodCitation","ReliableSources","ConciseComment","GoodCounterLogic","Informative","LogicalFallacy","NoRating");
     $GETID=array();
     $numberOfComments=0;
-
+    //connect to the server local host
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -19,12 +23,16 @@
     if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
     }  
-
+    //checks to see if it is a thread
     if($type){
+        //Create SQL Statement to get thread and comments
         $sql="SELECT * FROM postcomment inner join ratings on postcomment.CommentID = ratings.CommentID WHERE Thread_ID=".$ID;
+        //get the comments for the thread
         $result=$conn->query($sql);
+        //write the information gather from the database to the JSON FILE
         $fp = fopen('comment.json', 'w');
         $Comments='[';
+        //FIGURE OUT THE BEST RATING FOR EACH COMMENT
         if ($result->num_rows > 0) {  
             while($row = $result->fetch_assoc()) {
                 $BestRating=0;
@@ -34,18 +42,21 @@
                         $BestRating=  $row[$ratings[$i]];
                         $index=$i;
                     }   
+                    //checks to see if there are comments in the THREADS
                     $numberOfComments++;
                 } 
-             $Comments.='{"Comment_ID":'.$row['CommentID'].','.'"Comment_message":'.'"'.$row['Comment_message'].'"'.','.'"Comment_Date":'.'"'.$row['Comment_Date'].'"'.','.'"Comment_Rating":"'.$ratings[$index].'"},';
+            //writes comments to the json file in this format
+                $Comments.='{"Comment_ID":'.$row['CommentID'].','.'"Comment_message":'.'"'.$row['Comment_message'].'"'.','.'"Comment_Date":'.'"'.$row['Comment_Date'].'"'.','.'"Comment_Rating":"'.$ratings[$index].'"},';
             
             }
         }
+        //write to the comment.json 
          $Comments=rtrim($Comments, ",");
          $fp = fopen('comment.json', 'w');
         fwrite($fp, $Comments);
         fwrite($fp, ']');
         fclose($fp);
-
+        //get the comment id to show in the combo box
         $sql="SELECT CommentID FROM postcomment Where Thread_ID=".$ID;
         $result=$conn->query($sql);
         $i=0;
@@ -56,11 +67,14 @@
             }  
         }
     }
-
+//CHECKS TO SEE IF IT IS A POST
     if(!$type){
+        //make SQL Statement to get the comments
         $sql="SELECT * FROM postcomment inner join ratings on postcomment.CommentID = ratings.CommentID WHERE Posts_ID=".$ID;
+        //get the results of query
         $result=$conn->query($sql);
         $Comments='[';
+        //FIND THE BEST RATINGS
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $BestRating=0;
@@ -72,18 +86,22 @@
                     }   
                     $numberOfComments++;
                 } 
-             $Comments.='{"Comment_ID":'.$row['CommentID'].','.'"Comment_message":'.'"'.$row['Comment_message'].'"'.','.'"Comment_Date":'.'"'.$row['Comment_Date'].'"'.','.'"Comment_Rating":"'.$ratings[$index].'"},';
+            //Make the format of the comment json like this
+                $Comments.='{"Comment_ID":'.$row['CommentID'].','.'"Comment_message":'.'"'.$row['Comment_message'].'"'.','.'"Comment_Date":'.'"'.$row['Comment_Date'].'"'.','.'"Comment_Rating":"'.$ratings[$index].'"},';
             
             }
         }
+        //write to comments
         $Comments=rtrim($Comments, ",");
          $fp = fopen('comment.json', 'w');
         fwrite($fp, $Comments);
         fwrite($fp, ']');
         fclose($fp);
+        //Get the id of all the post comments
         $sql="SELECT CommentID FROM postcomment WHERE Posts_ID=".$ID;
         $result=$conn->query($sql);
         $i=0;
+        //write their ids to the combo box
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $GETID[$i]=$row['CommentID'];
@@ -91,11 +109,13 @@
             }  
         }
     }
-
+    //checks to see if they click the comment rating button
     if(isset($_POST['submit2'])){
+        //reply error if there are no comments to rate
         if($numberOfComments==0){
             $error="<label class='text-danger'>NO COMMENTS</label>";
         }
+        //Write to the data base for the new rating for the commment
         else{
         $selected= $_POST["RatingSS"];
         $StringSelected;
@@ -105,27 +125,33 @@
             }
         }
         $IDSELECTED=$_POST["RatingSSS"];
+            //make sql statement to write the rating to the comment
         $sql='UPDATE ratings SET '.$StringSelected .'='.$StringSelected.'+ 2 WHERE CommentID ='.$IDSELECTED;
         $conn->query($sql);
         }
     }
-
+    //IF MAKE NEW COMMENT WAS SELECTED
     if(isset($_POST["submit"]))
     {
 
-
+        //respond an error if textarea was left empty
         if(empty($_POST["textarea"])){
             
             $error="<label class='text-danger'>TEXT BOX LEFT BLANKS</label>";
         }
         else{
+                //Retrieve message
                 $Message=$_POST["textarea"];
+            //trim the message
                 $Message=trim($Message, "<p>");
                 $Message=rtrim($Message, "</p>");
+            //IF IT IS A THREAD
                 if($type){
+                    //WRITE THE SQL TO GET THE THREAD AND INSERT A COMMENT FOR THAT THREAD
                     $sql="INSERT INTO `postcomment`(`Comment_message`, `Comment_Date`, `Thread_ID`) VALUES('".$Message."','".date("Y/m/d")."','".$ID."');";
+                    //COMMIT TO DATABASE
                     $conn->query($sql);
-                   
+                   //GET THE CURRENT COMMENT ID
                     $sql="SELECT COMMENTID AS ID FROM postcomment where Thread_ID=".$ID ." and Comment_message=".'"'.$Message .'"'." order by CommentID asc";
                     $result = $conn->query($sql);
                     $CommentID=0;
@@ -134,15 +160,18 @@
                             $CommentID=$row["ID"];
                         }
                     }
+                    //GIVE IT A NO RATING FOR IT'S INITIALIZATION
                     $sql="INSERT INTO ratings (`CommentID`, `GoodCitation`, `ReliableSources`, `ConciseComment`, `GoodCounterLogic`, `Informative`, `LogicalFallacy`, `NoRating`) values(".$CommentID.',0,0,0,0,0,0,1)';
                     $conn->query($sql);
                 }
             
-
+            //IF IT IS A POST
                 if(!$type){
+                    //WRITE THE SQL TO GET THE THREAD AND INSERT A COMMENT FOR THAT POST
                     $sql="INSERT INTO `postcomment`(`Comment_message`, `Comment_Date`, `Posts_ID`) VALUES('".$Message."','".date("Y/m/d") ."','".$ID."');";
+                    //COMMIT TO DATABASE
                     $conn->query($sql);            
-                    
+                    //GET THE CURRENT COMMENT ID
                     $sql="SELECT COMMENTID AS ID FROM postcomment where Posts_ID=".$ID ." and Comment_message=".'"'.$Message .'"'." order by CommentID asc";
                     $result = $conn->query($sql);
                     $CommentID=0;
@@ -151,6 +180,7 @@
                             $CommentID=$row["ID"];
                         }
                     }
+                     //GIVE IT A NO RATING FOR IT'S INITIALIZATION
                     $sql="INSERT INTO ratings (`CommentID`, `GoodCitation`, `ReliableSources`, `ConciseComment`, `GoodCounterLogic`, `Informative`, `LogicalFallacy`, `NoRating`) values(".$CommentID.',0,0,0,0,0,0,1)';
                     $conn->query($sql);
                 
@@ -206,7 +236,7 @@
                 <!--This contains the individual comment-->
                 <div id="Comment"></div>
             </div>
-            
+            <!--rating combo box-->
                  <select name="RatingSS">
                      <option value="GoodCitation">      Good Citation      </option>
                      <option value="ReliableSources">   Reliable Sources   </option>
@@ -215,7 +245,7 @@
                      <option value="Informative">        Informative        </option>
                      <option value="LogicalFallacy">    Logical Fallacy    </option>
                  </select>  
-
+                <!--ID FOR THE RATINGS-->
                 <select name="RatingSSS">
                     <?php for($x=0; $x<count($GETID); $x++){
                      echo '<option value='.$GETID[$x] .'>' .$GETID[$x] .'</option>';
@@ -270,16 +300,17 @@
                  tinymce.init({selector:'textarea',skin: 'BlueBasic'});
             </script>  
             <script type="text/javascript">
-            var pictures=["../Mantipictures/mantiEmojis/manti_cool.png","../Mantipictures/mantiEmojis/manti_cry.png","../Mantipictures/mantiEmojis/manti_giggle.png","../Mantipictures/mantiEmojis/manti_love.png",
+            //picture to show in comments
+                var pictures=["../Mantipictures/mantiEmojis/manti_cool.png","../Mantipictures/mantiEmojis/manti_cry.png","../Mantipictures/mantiEmojis/manti_giggle.png","../Mantipictures/mantiEmojis/manti_love.png",
               "../Mantipictures/mantiEmojis/manti_reg.png","../Mantipictures/mantiEmojis/manti_sad.png","../Mantipictures/mantiEmojis/manti_smirk.png","../Mantipictures/mantiEmojis/manti_surprised.png"]
             $.getJSON("../MantiHTML/datas.json", function(obj){
-
+                //load the page with the post/thread info
                 $.each(obj, function(key,value){
                  var titles=[{TITLE: value.TITLE, Category: value.Category,Message: value.Message, URL: value.URL, Date: value.Date}];
                  $("#FillTitle").tmpl(titles).appendTo("#Titles");
                 });
             });
-
+                //load the page with comment information
             $.getJSON("../MantiHTML/comment.json", function(obj){
                 $.each(obj, function(key,value){
                     var Comments=[{Picture:pictures[Math.floor((Math.random() * 8))],ID:value.Comment_ID, WrittenEntry: value.Comment_message, Date: value.Comment_Date, Comment_Rating: value.Comment_Rating}];
